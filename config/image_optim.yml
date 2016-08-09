@@ -1,0 +1,7 @@
+verbose: true
+allow_lossy: true
+
+jpegrecompress:
+  allow_lossy: true
+jpegoptim:
+  max_quality: 90
