@@ -11,8 +11,7 @@ ENV \
   OPTIPNG_VERSION=0.7.6 \
   PNGCRUSH_VERSION=1.8.2 \
   PNGOUT_VERSION=20150319 \
-  PNGQUANT_VERSION=2.7.1 \
-  ZOPFLI_VERSION=1.0.1
+  PNGQUANT_VERSION=2.7.1
 
 WORKDIR /tmp
 
@@ -134,12 +133,12 @@ RUN \
 # svgo
 RUN npm install -g svgo
 
+# image_optim
+RUN \
+  echo -e 'install: --no-document\nupdate: --no-document' > "$HOME/.gemrc" \
+  && gem install --no-ri --no-rdoc image_optim
+
 # cleanup
 RUN \
   rm -rf /tmp/* \
   && apk del build-dependencies
-
-# image_optim
-RUN \
-  && echo -e 'install: --no-document\nupdate: --no-document' > "$HOME/.gemrc" \
-  && gem install --no-ri --no-rdoc image_optim
