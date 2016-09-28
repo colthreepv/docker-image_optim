@@ -9,7 +9,7 @@ ENV \
   JPEGOPTIM_VERSION=1.4.3 \
   MOZJPEG_VERSION=3.1 \
   OPTIPNG_VERSION=0.7.6 \
-  PNGCRUSH_VERSION=1.8.2 \
+  PNGCRUSH_VERSION=1.8.7 \
   PNGOUT_VERSION=20150319 \
   PNGQUANT_VERSION=2.7.1
 
@@ -34,6 +34,9 @@ RUN apk update && apk add \
   # svgo
   nodejs \
 
+  # image_optim
+  ruby \
+
   # build dependencies
   && apk add --virtual build-dependencies \
   build-base \
@@ -54,7 +57,7 @@ RUN apk update && apk add \
   curl \
 
   # image_optim
-  ruby ruby-irb
+  ruby-irb
 
 # advancecomp
 RUN \
