@@ -1,4 +1,4 @@
-# docker-image_optim-built
+# docker-image_optim
 A Dockerfile that builds every version of the best command line apps and then image_optim to rule them all
 
 ## credits
@@ -14,7 +14,7 @@ docker run --rm -ti \
   # Add whatever image directory you like
   # -v $(cd && cd images && pwd):/images/ \
   -v $(pwd)/config:/root/.config/ \
-  colthreepv/image_optim sh
+  colthreepv/docker-image_optim sh
 ```
 
 Then a simple `cd /images && image_optim -r .` would optimize all the images in the mounted path.
@@ -27,7 +27,7 @@ docker run --rm -ti \
   # Add whatever image directory you like
   # -v $(cd && cd images && pwd):/images/ \
   -v $(pwd)/config:/root/.config/ \
-  image_optim sh
+  docker-image_optim sh
 ```
 
 ## configs
