@@ -8,6 +8,12 @@ A Dockerfile that builds every version of the best command line apps and then im
 * creating more layers, so if you need to test different versions you can avoid full rebuilds.
 * Versions have been bumped, and ordered alphabetically
 
+## Minimal usage
+To use image_optim in your current dir just use
+```
+docker run --rm -ti -v $(pwd):/images/ colthreepv/docker-image_optim image_optim -r .
+```
+
 ## How To Use
 ```
 docker run --rm -ti \

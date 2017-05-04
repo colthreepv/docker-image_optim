@@ -1,17 +1,28 @@
-FROM alpine:3.4
+FROM alpine
 
 ENV \
-  ADVANCECOMP_VERSION=1.20 \
+  # https://github.com/amadvance/advancecomp/releases
+  ADVANCECOMP_VERSION=1.23 \
+  # https://github.com/kohler/gifsicle/releases
   GIFSICLE_VERSION=1.88 \
+  # http://www.ijg.org/
   IJG_VERSION=9b \
   JHEAD_VERSION=3.00 \
+  # https://github.com/danielgtaylor/jpeg-archive/releases
   JPEGARCHIVE_VERSION=2.1.1 \
-  JPEGOPTIM_VERSION=1.4.3 \
-  MOZJPEG_VERSION=3.1 \
+  # http://www.kokkonen.net/tjko/projects.html#jpegoptim
+  JPEGOPTIM_VERSION=1.4.4 \
+  # https://github.com/mozilla/mozjpeg/releases
+  MOZJPEG_VERSION=3.2 \
+  # https://sourceforge.net/projects/optipng/files/OptiPNG/
   OPTIPNG_VERSION=0.7.6 \
-  PNGCRUSH_VERSION=1.8.7 \
+  # https://sourceforge.net/projects/pmt/files/pngcrush/
+  PNGCRUSH_VERSION=1.8.11 \
   PNGOUT_VERSION=20150319 \
-  PNGQUANT_VERSION=2.7.1
+  # https://github.com/pornel/pngquant/releases
+  PNGQUANT_VERSION=2.8.0 \
+  # https://github.com/ImageOptim/libimagequant/releases
+  LIBIMAGEQUANT_VERSION=2.9.1
 
 WORKDIR /tmp
 
@@ -65,12 +76,13 @@ RUN \
   && tar zxf advancecomp-$ADVANCECOMP_VERSION.tar.gz \
   && cd advancecomp-$ADVANCECOMP_VERSION \
   && ./configure && make && make install
-  # gifsicle
+
+# gifsicle
 RUN \
-  curl -O https://www.lcdf.org/gifsicle/gifsicle-$GIFSICLE_VERSION.tar.gz \
-  && tar zxf gifsicle-$GIFSICLE_VERSION.tar.gz \
+  curl -L -O https://github.com/kohler/gifsicle/archive/v$GIFSICLE_VERSION.tar.gz \
+  && tar zxf v$GIFSICLE_VERSION.tar.gz \
   && cd gifsicle-$GIFSICLE_VERSION \
-  && ./configure && make && make install
+  && autoreconf -i && ./configure && make && make install
 
 # jhead
 RUN \
@@ -128,8 +140,11 @@ RUN \
 
 # pngquant
 RUN \
-  curl -L -O https://github.com/pornel/pngquant/archive/$PNGQUANT_VERSION.tar.gz \
+  curl -L -O https://github.com/ImageOptim/libimagequant/archive/$LIBIMAGEQUANT_VERSION.tar.gz \
+  && tar xzf $LIBIMAGEQUANT_VERSION.tar.gz \
+  && curl -L -O https://github.com/pornel/pngquant/archive/$PNGQUANT_VERSION.tar.gz \
   && tar xzf $PNGQUANT_VERSION.tar.gz \
+  && mv libimagequant-$LIBIMAGEQUANT_VERSION/* pngquant-$PNGQUANT_VERSION/lib/ \
   && cd pngquant-$PNGQUANT_VERSION \
   && ./configure && make && make install
 
@@ -145,3 +160,5 @@ RUN \
 RUN \
   rm -rf /tmp/* \
   && apk del build-dependencies
+
+WORKDIR /images
