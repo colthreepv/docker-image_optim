@@ -2,27 +2,27 @@ FROM alpine
 
 ENV \
   # https://github.com/amadvance/advancecomp/releases
-  ADVANCECOMP_VERSION=1.23 \
+  ADVANCECOMP_VERSION=2.1 \
   # https://github.com/kohler/gifsicle/releases
-  GIFSICLE_VERSION=1.88 \
+  GIFSICLE_VERSION=1.91 \
   # http://www.ijg.org/
-  IJG_VERSION=9b \
+  IJG_VERSION=9c \
   JHEAD_VERSION=3.00 \
   # https://github.com/danielgtaylor/jpeg-archive/releases
   JPEGARCHIVE_VERSION=2.1.1 \
   # http://www.kokkonen.net/tjko/projects.html#jpegoptim
-  JPEGOPTIM_VERSION=1.4.4 \
+  JPEGOPTIM_VERSION=1.4.6 \
   # https://github.com/mozilla/mozjpeg/releases
-  MOZJPEG_VERSION=3.2 \
+  MOZJPEG_VERSION=3.3.1 \
   # https://sourceforge.net/projects/optipng/files/OptiPNG/
-  OPTIPNG_VERSION=0.7.6 \
+  OPTIPNG_VERSION=0.7.7 \
   # https://sourceforge.net/projects/pmt/files/pngcrush/
-  PNGCRUSH_VERSION=1.8.11 \
+  PNGCRUSH_VERSION=1.8.13 \
   PNGOUT_VERSION=20150319 \
   # https://github.com/pornel/pngquant/releases
-  PNGQUANT_VERSION=2.8.0 \
+  PNGQUANT_VERSION=2.11.7 \
   # https://github.com/ImageOptim/libimagequant/releases
-  LIBIMAGEQUANT_VERSION=2.9.1
+  LIBIMAGEQUANT_VERSION=2.12.1
 
 WORKDIR /tmp
 
