@@ -2,27 +2,27 @@ FROM alpine
 
 ENV \
   # https://github.com/amadvance/advancecomp/releases
-  ADVANCECOMP_VERSION=1.23 \
+  ADVANCECOMP_VERSION=2.1 \
   # https://github.com/kohler/gifsicle/releases
-  GIFSICLE_VERSION=1.88 \
+  GIFSICLE_VERSION=1.91 \
   # http://www.ijg.org/
-  IJG_VERSION=9b \
+  IJG_VERSION=9c \
   JHEAD_VERSION=3.00 \
   # https://github.com/danielgtaylor/jpeg-archive/releases
-  JPEGARCHIVE_VERSION=2.1.1 \
-  # http://www.kokkonen.net/tjko/projects.html#jpegoptim
-  JPEGOPTIM_VERSION=1.4.4 \
+  JPEGARCHIVE_VERSION=2.2.0 \
+  # https://www.kokkonen.net/tjko/projects.html#jpegoptim
+  JPEGOPTIM_VERSION=1.4.6 \
   # https://github.com/mozilla/mozjpeg/releases
-  MOZJPEG_VERSION=3.2 \
+  MOZJPEG_VERSION=3.3.1 \
   # https://sourceforge.net/projects/optipng/files/OptiPNG/
-  OPTIPNG_VERSION=0.7.6 \
+  OPTIPNG_VERSION=0.7.7 \
   # https://sourceforge.net/projects/pmt/files/pngcrush/
-  PNGCRUSH_VERSION=1.8.11 \
+  PNGCRUSH_VERSION=1.8.13 \
   PNGOUT_VERSION=20150319 \
   # https://github.com/pornel/pngquant/releases
-  PNGQUANT_VERSION=2.8.0 \
+  PNGQUANT_VERSION=2.12.1 \
   # https://github.com/ImageOptim/libimagequant/releases
-  LIBIMAGEQUANT_VERSION=2.9.1
+  LIBIMAGEQUANT_VERSION=2.12.1
 
 WORKDIR /tmp
 
@@ -30,7 +30,6 @@ WORKDIR /tmp
 # compiled/installed binaries behind in order minimize the
 # footprint of the image layer.
 RUN apk update && apk add \
-
   # runtime dependencies
 
   # advcomp (libstdc++.so, libgcc_s.so)
@@ -43,7 +42,7 @@ RUN apk update && apk add \
   libpng \
 
   # svgo
-  nodejs \
+  nodejs yarn \
 
   # image_optim
   ruby \
@@ -93,7 +92,7 @@ RUN \
 
 # jpegoptim
 RUN \
-  curl -O http://www.kokkonen.net/tjko/src/jpegoptim-$JPEGOPTIM_VERSION.tar.gz \
+  curl -O https://www.kokkonen.net/tjko/src/jpegoptim-$JPEGOPTIM_VERSION.tar.gz \
   && tar zxf jpegoptim-$JPEGOPTIM_VERSION.tar.gz \
   && cd jpegoptim-$JPEGOPTIM_VERSION \
   && ./configure && make && make install
@@ -105,8 +104,8 @@ RUN \
   && cd mozjpeg-$MOZJPEG_VERSION \
   && autoreconf -fiv && ./configure && make && make install
 RUN \
-  curl -L -O https://github.com/danielgtaylor/jpeg-archive/archive/$JPEGARCHIVE_VERSION.tar.gz \
-  && tar zxf $JPEGARCHIVE_VERSION.tar.gz \
+  curl -L -O https://github.com/danielgtaylor/jpeg-archive/archive/v$JPEGARCHIVE_VERSION.tar.gz \
+  && tar zxf v$JPEGARCHIVE_VERSION.tar.gz \
   && cd jpeg-archive-$JPEGARCHIVE_VERSION \
   && make && make install
 
@@ -149,7 +148,7 @@ RUN \
   && ./configure && make && make install
 
 # svgo
-RUN npm install -g svgo
+RUN yarn global add svgo --prefix /usr/local
 
 # image_optim
 RUN \
